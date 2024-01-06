@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import { WalletContextProvider } from "@/app/context/WalletProvider";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { Wallet } from "./context/connectWallet";
 require('@solana/wallet-adapter-react-ui/styles.css');
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "antialiased min-h-screen pt-16")}>
-      <WalletContextProvider>
+      <Wallet>
         <Providers>
         <WalletModalProvider>
           <Navbar />
@@ -33,7 +34,7 @@ export default function RootLayout({
           <Toaster />
         </WalletModalProvider>
         </Providers>
-        </WalletContextProvider>
+        </Wallet>
       </body>
     </html>
   );

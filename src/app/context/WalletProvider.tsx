@@ -1,3 +1,4 @@
+"use client";
 import { Adapter, WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { FC, ReactNode, useCallback, useMemo } from 'react';
@@ -6,9 +7,6 @@ import { SolanaSignInInput } from '@solana/wallet-standard-features';
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
-  BackpackWalletAdapter,
-  SolletWalletAdapter,
-  SolletExtensionWalletAdapter,
   TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 export const ReactUIWalletModalProviderDynamic = dynamic(
@@ -51,11 +49,8 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
   
     const wallets = useMemo(
       () => [
-        new BackpackWalletAdapter(),
         new PhantomWalletAdapter(),
         new SolflareWalletAdapter(),
-        new SolletWalletAdapter({ network }),
-        new SolletExtensionWalletAdapter({ network }),
         new TorusWalletAdapter(),
       ],
       [network]
