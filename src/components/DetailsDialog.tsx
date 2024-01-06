@@ -12,7 +12,9 @@ import { Github, HelpCircle, Youtube } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-type Props = {};
+type Props = {
+  message?: string;
+};
 
 const DetailsDialog = (props: Props) => {
   return (
@@ -48,10 +50,7 @@ const DetailsDialog = (props: Props) => {
               </p>
             </div> */}
             <p className="my-2 mt-4 ">
-              Are you tired of mundane and repetitive quizzes? Say goodbye to
-              the ordinary and embrace the extraordinary with Quizmefy! Our
-              platform is revolutionizing the quiz and trivia experience by
-              harnessing the immense potential of artificial intelligence.
+              {props.message}
             </p>
             <hr />
             <p className="my-2 font-semibold">

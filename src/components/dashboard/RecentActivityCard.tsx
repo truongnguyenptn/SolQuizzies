@@ -14,15 +14,15 @@ import HistoryComponent from "../HistoryComponent";
 type Props = {};
 
 const RecentActivityCard = async (props: Props) => {
-  const session = await getAuthSession();
+  // const session = await getAuthSession();
   // if (!session?.user) {
   //   return redirect("/");
   // }
-  const games_count = await prisma.game.count({
-    where: {
-      userId: session.user.id,
-    },
-  });
+  // const games_count = await prisma.game.count({
+  //   where: {
+  //     userId: session.user.id,
+  //   },
+  // });
   return (
     <Card className="col-span-4 lg:col-span-3">
       <CardHeader>
@@ -30,11 +30,11 @@ const RecentActivityCard = async (props: Props) => {
           <Link href="/history">Recent Activity</Link>
         </CardTitle>
         <CardDescription>
-          You have played a total of {games_count} quizzes.
+          {/* You have played a total of {games_count} quizzes. */}
         </CardDescription>
       </CardHeader>
       <CardContent className="max-h-[580px] overflow-scroll">
-        <HistoryComponent limit={10} userId={session.user.id} />
+        {/* <HistoryComponent limit={10} userId={session.user.id} /> */}
       </CardContent>
     </Card>
   );
