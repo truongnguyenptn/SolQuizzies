@@ -15,10 +15,19 @@ import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 
 type Props = {
-  user: Pick<User, "name" | "image" | "email">;
+  user?: Pick<User, "name" | "image" | "email">;
 };
+const defaultUser = {
+  "name": "truongnguyen",
+  "image": "https://mpost.io/wp-content/uploads/image-46-153.jpg",
+  "email": "billcipher310@gmail.com"
 
-const UserAccountNav = ({ user }: Props) => {
+}
+const UserAccountNav = ({ user = defaultUser }: Props = {
+  user: defaultUser
+}
+) => {
+  console.log(user)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
