@@ -1,5 +1,4 @@
 import { buttonVariants } from "@/components/ui/button";
-import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
@@ -22,10 +21,10 @@ const Statistics = async ({ params: { gameId } }: Props) => {
   if (!session?.user) {
     return redirect("/");
   }
-  const game = await prisma.game.findUnique({
-    where: { id: gameId },
-    include: { questions: true },
-  });
+  // const game = await prisma.game.findUnique({
+  //   where: { id: gameId },
+  //   include: { questions: true },
+  // });
   if (!game) {
     return redirect("/");
   }

@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Quiz = async ({ searchParams }: Props) => {
-  const session = await getAuthSession();
+  // const session = await getAuthSession();
 
   return <QuizCreation topic={searchParams.topic ?? ""} />;
 };

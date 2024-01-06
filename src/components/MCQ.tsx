@@ -34,8 +34,8 @@ const MCQ = ({ game }: Props) => {
   const [now, setNow] = React.useState(new Date());
 
   const currentQuestion = React.useMemo(() => {
-    return game.questions[questionIndex];
-  }, [questionIndex, game.questions]);
+    return game?.questions?.[questionIndex];
+  }, [questionIndex, game?.questions]);
 
   const options = React.useMemo(() => {
     if (!currentQuestion) return [];
@@ -58,7 +58,7 @@ const MCQ = ({ game }: Props) => {
   const { mutate: endGame } = useMutation({
     mutationFn: async () => {
       const payload: z.infer<typeof endGameSchema> = {
-        gameId: game.id,
+        gameId: game?.id,
       };
       const response = await axios.post(`/api/endGame`, payload);
       return response.data;
@@ -98,7 +98,7 @@ const MCQ = ({ game }: Props) => {
             variant: "destructive",
           });
         }
-        if (questionIndex === game.questions.length - 1) {
+        if (questionIndex === game?.questions.length - 1) {
           endGame();
           setHasEnded(true);
           return;
@@ -106,7 +106,7 @@ const MCQ = ({ game }: Props) => {
         setQuestionIndex((questionIndex) => questionIndex + 1);
       },
     });
-  }, [checkAnswer, questionIndex, game.questions.length, toast, endGame]);
+  }, [checkAnswer, questionIndex, game?.questions?.length, toast, endGame]);
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -137,10 +137,10 @@ const MCQ = ({ game }: Props) => {
       <div className="absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div className="px-4 py-2 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap">
           You Completed in{" "}
-          {formatTimeDelta(differenceInSeconds(now, game.timeStarted))}
+          {formatTimeDelta(differenceInSeconds(now, game?.timeStarted))}
         </div>
         <Link
-          href={`/statistics/${game.id}`}
+          href={`/statistics/${game?.id}`}
           className={cn(buttonVariants({ size: "lg" }), "mt-2")}
         >
           View Statistics
@@ -158,12 +158,12 @@ const MCQ = ({ game }: Props) => {
           <p>
             <span className="text-slate-400">Topic</span> &nbsp;
             <span className="px-2 py-1 text-white rounded-lg bg-slate-800">
-              {game.topic}
+              {game?.topic}
             </span>
           </p>
           <div className="flex self-start mt-3 text-slate-400">
             <Timer className="mr-2" />
-            {formatTimeDelta(differenceInSeconds(now, game.timeStarted))}
+            {formatTimeDelta(differenceInSeconds(now, game?.timeStarted))}
           </div>
         </div>
         <MCQCounter
@@ -176,7 +176,7 @@ const MCQ = ({ game }: Props) => {
           <CardTitle className="mr-5 text-center divide-y divide-zinc-600/50">
             <div>{questionIndex + 1}</div>
             <div className="text-base text-slate-400">
-              {game.questions.length}
+              {game?.questions?.length}
             </div>
           </CardTitle>
           <CardDescription className="flex-grow text-lg">

@@ -1,39 +1,37 @@
+"use client"
+import LoadingQuestions from "@/components/LoadingQuestions";
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   params: {
     gameId: string;
   };
 };
+const retrievePosts = async (gameId) => {
+  try {
+    const response = await axios.post(`/api/mcq`, { gameId });
+    return response;
+  } catch (error) {
+    console.error("Error retrieving data:", error);
+    return { ok: false, error: "Failed to retrieve data" };
+  }
+};
 
-const MCQPage = async ({ params: { gameId } }: Props) => {
-  const session = await getAuthSession();
+const MCQPage =  ({ params: { gameId } }: Props) => {
+  // const session = await getAuthSession();
   // if (!session?.user) {
   //   return redirect("/");
   // }
 
-  const game = await prisma.game.findUnique({
-    where: {
-      id: gameId,
-    },
-    include: {
-      questions: {
-        select: {
-          id: true,
-          question: true,
-          options: true,
-        },
-      },
-    },
-  });
-  if (!game || game.gameType === "open_ended") {
-    return redirect("/quiz");
-  }
-  return <MCQ game={game} />;
+  const { data, isLoading } = useQuery([gameId], () => retrievePosts(gameId));
+  if ( isLoading ) return <LoadingQuestions finished = {!isLoading}/>;
+  return <MCQ game={data?.data?.game} />;
 };
 
 export default MCQPage;

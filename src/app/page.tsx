@@ -1,3 +1,4 @@
+"use client"
 import SignInButton from "@/components/SignInButton";
 import {
   Card,
@@ -7,13 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-
-export default async function Home() {
-  const session = await getServerSession();
+// import { getServerSession } from "next-auth";
+import { signIn, useSession } from "next-auth/react";
+import WalletMultiButtonDynamic from "@/components/WalletButton";
+import { useState, useCallback } from "react";
+import { TLog } from "@/types";
+export default function Home() {
+  const { data: session, status } = useSession();
+  // const session = await getServerSession();
   if (session?.user) {
     redirect("/dashboard");
   }
+ 
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
       <Card className="w-[300px]">
@@ -25,7 +31,7 @@ export default async function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <SignInButton text="Sign In with Wallet" />
+          <SignInButton text="Sign in"/>
         </CardContent>
       </Card>
     </div>
