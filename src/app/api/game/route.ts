@@ -6,8 +6,9 @@ import { z } from "zod";
 import axios from "axios";
 
 export async function POST(req: Request, res: Response) {
+
   try {
-    const session = await getAuthSession();
+    // const session = await getAuthSession();
     // if (!session?.user) {
     //   return NextResponse.json(
     //     { error: "You must be logged in to create a game." },
@@ -16,18 +17,23 @@ export async function POST(req: Request, res: Response) {
     //     }
     //   );
     // }
+    console.log("before post question");
+    
     const body = await req.json();
-    const { topic, type, amount } = quizCreationSchema.parse(body);
+    // const { topic, type, amount } = quizCreationSchema.parse(body);
+    const type = "test";
+    const topic= "test"
+
     const game = await prisma.game.create({
       data: {
-        gameType: type,
+        gameType: type || "test",
         timeStarted: new Date(),
         //TODO: adds auth admin
         userId: 'admin',
-        topic,
+        topic : topic ||  "testTopic",
       },
     });
-    console.log("before post question");
+    console.log("after create question");
     await prisma.topic_count.upsert({
       where: {
         topic,
