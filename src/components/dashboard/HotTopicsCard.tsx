@@ -27,14 +27,14 @@ const HotTopicsCard = async (props: Props) => {
   const formattedTopics = await getTopics();
   console.log(formattedTopics);
   return (
-    <Card className="col-span-4">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">Hot Topics</CardTitle>
+    <Card className="">
+      <CardHeader className="col-span-4 ">
+        <CardTitle className="text-2xl font-bold ">Hot Topics</CardTitle>
         <CardDescription>
           Click on a topic to start a quiz on it.
         </CardDescription>
       </CardHeader>
-      <CardContent className="pl-2">
+      <CardContent className="pl-2 col-span-6">
         <WordCloud formattedTopics={formattedTopics} />
       </CardContent>
     </Card>
