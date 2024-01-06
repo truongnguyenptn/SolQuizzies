@@ -1,3 +1,4 @@
+"use client";
 import OpenEnded from "@/components/OpenEnded";
 import { redirect } from "next/navigation";
 import React from "react";
