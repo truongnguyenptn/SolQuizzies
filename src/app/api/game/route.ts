@@ -22,10 +22,12 @@ export async function POST(req: Request, res: Response) {
       data: {
         gameType: type,
         timeStarted: new Date(),
+        //TODO: adds auth admin
         userId: 'admin',
         topic,
       },
     });
+    console.log("before post question");
     await prisma.topic_count.upsert({
       where: {
         topic,

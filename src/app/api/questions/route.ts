@@ -9,6 +9,7 @@ export const maxDuration = 500;
 
 export async function POST(req: Request, res: Response) {
   try {
+    console.log("questions api called");
     const session = await getAuthSession();
     // if (!session?.user) {
     //   return NextResponse.json(
@@ -64,7 +65,7 @@ export async function POST(req: Request, res: Response) {
         }
       );
     } else {
-      console.error("elle gpt error", error);
+      console.error("gpt error", error);
       return NextResponse.json(
         { error: "An unexpected error occurred." },
         {
