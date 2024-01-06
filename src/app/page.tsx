@@ -13,10 +13,13 @@ import { signIn, useSession } from "next-auth/react";
 import WalletMultiButtonDynamic from "@/components/WalletButton";
 import { useState, useCallback } from "react";
 import { TLog } from "@/types";
+import { Button } from "@/components/ui/button";
+import { useWallet } from "@solana/wallet-adapter-react";
+
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { publicKey } = useWallet();
   // const session = await getServerSession();
-  if (session?.user) {
+  if (publicKey) {
     redirect("/dashboard");
   }
  
@@ -31,7 +34,8 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <SignInButton text="Sign in"/>
+          {/* <SignInButton text="Sign in"/> */}
+          <Button onClick={() => redirect("/dashboard")}>Go to dashboard</Button>
         </CardContent>
       </Card>
     </div>

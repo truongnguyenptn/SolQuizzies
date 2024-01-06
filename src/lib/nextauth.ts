@@ -30,9 +30,10 @@ declare module "next-auth/jwt" {
 }
 
 export const authOptions: NextAuthOptions = {
-  // session: {
-  //   strategy: "jwt",
-  // },
+  session: {
+    strategy: "jwt",
+    maxAge: parseInt(process.env.NEXTAUTH_JWT_AGE!) || 1209600,
+  },
   // secret: process.env.NEXTAUTH_SECRET,
   // callbacks: {
   //   jwt: async ({ token }) => {

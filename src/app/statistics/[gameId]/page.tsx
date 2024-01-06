@@ -17,14 +17,11 @@ type Props = {
 };
 
 const Statistics = async ({ params: { gameId } }: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
-  }
-  // const game = await prisma.game.findUnique({
-  //   where: { id: gameId },
-  //   include: { questions: true },
-  // });
+
+  const game = await prisma.game.findUnique({
+    where: { id: gameId },
+    include: { questions: true },
+  });
   if (!game) {
     return redirect("/");
   }

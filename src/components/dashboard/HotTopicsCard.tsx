@@ -7,17 +7,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import WordCloud from "../WordCloud";
+import axios from "axios";
 
 type Props = {};
 
+const getTopics = async ()=> {
+  const data = await axios.get(`http://127.0.0.1:3000/api/topic`,);
+  return data.data.formattedTopics;
+}
+
 const HotTopicsCard = async (props: Props) => {
-  const topics = await prisma.topic_count.findMany({});
+  // const topics = await prisma.topic_count.findMany({});
   // const formattedTopics = topics.map((topic) => {
   //   return {
   //     text: topic.topic,
   //     value: topic.count,
   //   };
   // });
+  const formattedTopics = await getTopics();
+  console.log(formattedTopics);
   return (
     <Card className="col-span-4">
       <CardHeader>

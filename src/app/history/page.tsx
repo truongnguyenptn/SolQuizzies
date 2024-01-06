@@ -1,3 +1,4 @@
+"use client"
 import HistoryComponent from "@/components/HistoryComponent";
 import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
@@ -6,14 +7,13 @@ import React from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { LucideLayoutDashboard } from "lucide-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 type Props = {};
 
-const History = async (props: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
-  }
+const History = (props: Props) => {
+  const { wallet, publicKey, connect, disconnect, signMessage, signIn } = useWallet();
+
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[400px]">
       <Card>
@@ -27,7 +27,7 @@ const History = async (props: Props) => {
           </div>
         </CardHeader>
         <CardContent className="max-h-[60vh] overflow-scroll">
-          <HistoryComponent limit={100} userId={session.user.id} />
+          <HistoryComponent limit={100} userId={publicKey?.toString()} />
         </CardContent>
       </Card>
     </div>

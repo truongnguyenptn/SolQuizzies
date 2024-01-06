@@ -2,13 +2,24 @@ import { Clock, CopyCheck, Edit2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import MCQCounter from "./MCQCounter";
+import { useWallet } from "@solana/wallet-adapter-react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   limit: number;
   userId: string;
 };
-
-const HistoryComponent = async ({ limit, userId }: Props) => {
+const retrieveHistory = async (limit : number , userId: string) => {
+  try {
+    const response = await axios.post(`/api/userHistory`, { limit, userId });
+    return response;
+  } catch (error) {
+    console.error("Error retrieving data:", error);
+    return { ok: false, error: "Failed to retrieve data" };
+  }
+};
+const HistoryComponent = ({ limit, userId }: Props) => {
   // const games = await prisma.game.findMany({
   //   take: limit,
   //   where: {
@@ -18,9 +29,10 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
   //     timeStarted: "desc",
   //   },
   // });
+  const { data, isLoading } = useQuery([userId], () => retrieveHistory(limit, userId));
   return (
     <div className="space-y-8">
-      {games.map((game) => {
+      {data?.data?.games?.map((game) => {
         return (
           <div className="flex items-center justify-between" key={game.id}>
             <div className="flex items-center">

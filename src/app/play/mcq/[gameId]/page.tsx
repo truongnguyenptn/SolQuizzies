@@ -13,7 +13,7 @@ type Props = {
     gameId: string;
   };
 };
-const retrievePosts = async (gameId) => {
+const retrievePosts = async (gameId: string) => {
   try {
     const response = await axios.post(`/api/mcq`, { gameId });
     return response;
