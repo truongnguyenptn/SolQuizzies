@@ -17,9 +17,7 @@ interface Props {
 
 const Quiz = async ({ searchParams }: Props) => {
   const session = await getAuthSession();
-  if (!session?.user) {
-    redirect("/");
-  }
+
   return <QuizCreation topic={searchParams.topic ?? ""} />;
 };
 

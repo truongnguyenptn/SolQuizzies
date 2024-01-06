@@ -19,8 +19,8 @@ const Navbar = async () => {
         </Link>
         <div className="flex items-center">
           <ThemeToggle className="mr-4" />
-          {!session?.user ? (
-            <UserAccountNav />
+          {session?.user ? (
+            <UserAccountNav user = {session.user}/>
           ) : (
             <SignInButton text={"Sign In"} />
           )}
