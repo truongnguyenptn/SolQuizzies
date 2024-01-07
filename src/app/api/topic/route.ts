@@ -11,7 +11,7 @@ export async function GET(
     const topics = await prisma.topic_count.findMany({});
     const formattedTopics = topics.map((topic) => {
       return {
-        // id: topic.id,
+        id: topic.id,
         text: topic.topic,
         value: topic.count,
       };

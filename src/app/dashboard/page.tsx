@@ -14,7 +14,7 @@ export const metadata = {
   description: "Quiz yourself on anything!",
 };
 
-const Dasboard = async (props: Props) => {
+const Dasboard = (props: Props) => {
   // const session = await getAuthSession();
   // if (!session?.user) {
   //   redirect("/");

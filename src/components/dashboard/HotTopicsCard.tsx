@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   Card,
@@ -9,15 +10,16 @@ import {
 import WordCloud from "../WordCloud";
 import axios from "axios";
 import { config } from "@/lib/config";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {};
 
 const getTopics = async ()=> {
-  const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/topic`,);
+  const data = await axios.get(`/api/topic`,);
   return data.data.formattedTopics;
 }
 
-const HotTopicsCard = async (props: Props) => {
+const HotTopicsCard = (props: Props) => {
   // const topics = await prisma.topic_count.findMany({});
   // const formattedTopics = topics.map((topic) => {
   //   return {
@@ -25,8 +27,10 @@ const HotTopicsCard = async (props: Props) => {
   //     value: topic.count,
   //   };
   // });
-  const formattedTopics = await getTopics();
-  console.log(formattedTopics);
+  // const formattedTopics = await getTopics();
+  // console.log(formattedTopics);
+  const { data, isLoading } = useQuery([props], () => getTopics());
+
   return (
     <Card className="">
       <CardHeader className="col-span-4 ">
@@ -36,7 +40,7 @@ const HotTopicsCard = async (props: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pl-2 col-span-6">
-        <WordCloud formattedTopics={formattedTopics} />
+      {data && <WordCloud formattedTopics={data?.data.formattedTopics} />}
       </CardContent>
     </Card>
   );

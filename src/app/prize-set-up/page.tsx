@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import DetailsDialog from "@/components/DetailsDialog";
 import PrizeColumnCard from "@/components/prize-set-up/PrizeColumnCard";
@@ -25,7 +26,7 @@ const Page = () => {
       </div>
       <div>
         <PrizeColumnCard/>
-        <MintNFTForm/>
+        {/* <MintNFTForm/> */}
       </div>
     </main>
     );
