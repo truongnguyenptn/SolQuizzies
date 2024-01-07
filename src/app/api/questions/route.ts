@@ -10,7 +10,6 @@ export const maxDuration = 500;
 export async function POST(req: Request, res: Response) {
   try {
     console.log("questions api called");
-    const session = await getAuthSession();
     // if (!session?.user) {
     //   return NextResponse.json(
     //     { error: "You must be logged in to create a game." },
