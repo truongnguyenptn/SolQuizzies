@@ -2292,6 +2292,7 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
+
 "@radix-ui/number@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/number/-/number-1.0.1.tgz#644161a3557f46ed38a042acf4a770e826021674"
@@ -3152,7 +3153,7 @@
     "@jnwng/walletconnect-solana" "^0.2.0"
     "@solana/wallet-adapter-base" "^0.9.23"
 
-"@solana/wallet-adapter-wallets@^0.19.20":
+"@solana/wallet-adapter-wallets@^0.19.25":
   version "0.19.25"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-wallets/-/wallet-adapter-wallets-0.19.25.tgz#e6611ca48c2bff210934b8d33148bf77600b6422"
   integrity sha512-gk25fVa4HgB+3x4mqyr9fN3emp9TcEm8Rk2kVn3LZWzI01fmWVHA0TwaVnvN7bNycBc4MTCfQwP1HiELJloC+Q==
@@ -5142,6 +5143,7 @@ atomic-sleep@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/atomic-sleep/-/atomic-sleep-1.0.0.tgz#eb85b77a601fc932cfe432c5acd364a9e2c9075b"
   integrity sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
+
 attr-accept@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.2.tgz#646613809660110749e92f2c10833b70968d929b"
@@ -5907,16 +5909,17 @@ class-variance-authority@^0.7.0:
   dependencies:
     clsx "2.0.0"
 
+classnames@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
+
 clean-css@^5.2.2:
   version "5.3.3"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-5.3.3.tgz#b330653cd3bd6b75009cc25c714cae7b93351ccd"
   integrity sha512-D5J+kHaVb/wKSFcyyV75uCn8fiY4sV38XJoe4CUyGQ+mOU/fMVYUdH1hJC+CJQ5uY3EnW27SbJYS4X8BiLrAFg==
   dependencies:
     source-map "~0.6.0"
-classnames@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
-  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
 client-only@0.0.1:
   version "0.0.1"
@@ -7749,6 +7752,7 @@ file-loader@^6.2.0:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
 file-selector@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.6.0.tgz#fa0a8d9007b829504db4d07dd4de0310b65287dc"
@@ -11731,10 +11735,6 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-error-overlay@^6.0.11:
-  version "6.0.11"
-  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
-  integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 react-dropzone@^14.2.3:
   version "14.2.3"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-14.2.3.tgz#0acab68308fda2d54d1273a1e626264e13d4e84b"
@@ -11743,6 +11743,11 @@ react-dropzone@^14.2.3:
     attr-accept "^2.2.2"
     file-selector "^0.6.0"
     prop-types "^15.8.1"
+
+react-error-overlay@^6.0.11:
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
+  integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
 react-fast-compare@^3.2.0:
   version "3.2.2"
