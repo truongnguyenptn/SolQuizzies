@@ -22,7 +22,7 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
   }, [answer]);
 
   const answerWithBlanks = React.useMemo(() => {
-    const answerWithBlanks = keywords.reduce((acc, curr) => {
+    const answerWithBlanks = keywords?.reduce((acc, curr) => {
       return acc.replaceAll(curr, blank);
     }, answer);
     setBlankAnswer(answerWithBlanks);
@@ -33,11 +33,11 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
     <div className="flex justify-start w-full mt-4">
       <h1 className="text-xl font-semibold">
         {/* replace the blanks with input elements */}
-        {answerWithBlanks.split(blank).map((part, index) => {
+        {answerWithBlanks?.split(blank).map((part, index) => {
           return (
             <React.Fragment key={index}>
               {part}
-              {index === answerWithBlanks.split(blank).length - 1 ? (
+              {index === answerWithBlanks?.split(blank).length - 1 ? (
                 ""
               ) : (
                 <input

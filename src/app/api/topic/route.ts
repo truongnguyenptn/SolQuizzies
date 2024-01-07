@@ -7,10 +7,11 @@ export async function GET(
   res: Response
 ) {
   try {
-
+    console.log("topic routes called");
     const topics = await prisma.topic_count.findMany({});
     const formattedTopics = topics.map((topic) => {
       return {
+        // id: topic.id,
         text: topic.topic,
         value: topic.count,
       };

@@ -8,11 +8,12 @@ import {
 } from "@/components/ui/card";
 import WordCloud from "../WordCloud";
 import axios from "axios";
+import { config } from "@/lib/config";
 
 type Props = {};
 
 const getTopics = async ()=> {
-  const data = await axios.get(`http://127.0.0.1:3000/api/topic`,);
+  const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/topic`,);
   return data.data.formattedTopics;
 }
 
