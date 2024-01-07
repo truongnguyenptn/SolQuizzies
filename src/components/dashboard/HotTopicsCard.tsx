@@ -40,7 +40,7 @@ const HotTopicsCard = (props: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pl-2 col-span-6">
-      {data && <WordCloud formattedTopics={data?.data.formattedTopics} />}
+      {data?.data && <WordCloud formattedTopics={data?.data?.formattedTopics} />}
       </CardContent>
     </Card>
   );
