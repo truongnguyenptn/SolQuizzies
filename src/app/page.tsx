@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { redirect } from "next/navigation";
 // import { getServerSession } from "next-auth";
-import { signIn, useSession } from "next-auth/react";
 import WalletMultiButtonDynamic from "@/components/WalletButton";
 import { useState, useCallback } from "react";
 import { TLog } from "@/types";

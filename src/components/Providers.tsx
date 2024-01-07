@@ -14,7 +14,7 @@ const Providers = ({ children }: ThemeProviderProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
-        <SessionProvider>{children}</SessionProvider>
+        {children}
       </NextThemesProvider>
     </QueryClientProvider>
   );
