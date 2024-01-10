@@ -49,6 +49,7 @@ model User {
   games         Game[]
   accounts      Account[]
   sessions      Session[]
+  Attempt       Attempt[]
 }
 
 enum GameType {
@@ -64,7 +65,8 @@ model Game {
   topic       String
   timeEnded   DateTime?
   gameType    GameType
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User        User       @relation(fields: [userId], references: [id])
+  Attempt     Attempt[]
 
   @@index([userId])
 }
@@ -76,17 +78,44 @@ model topic_count {
 }
 
 model Question {
-  id                String   @id @default(cuid())
-  question          String
-  answer            String
-  gameId            String
-  options           Json? // for mcq questions
-  percentageCorrect Float? // for open_ended questions
-  isCorrect         Boolean? // for mcq questions
-  questionType      GameType
-  userAnswer        String?
+  id           String   @id @default(cuid())
+  question     String
+  answer       String
+  gameId       String
+  options      Json? // for mcq questions
+  questionType GameType
+  score        Int      @default(0)
+  game         Game     @relation(fields: [gameId], references: [id])
+  Answer       Answer[]
 
-  game Game @relation(fields: [gameId], references: [id])
+  @@index([gameId])
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  userAnswer String
+  attemptId  String
+  isCorrect  Boolean? // for mcq questions
+  question   Question @relation(fields: [questionId], references: [id])
+  attempt    Attempt  @relation(fields: [attemptId], references: [id])
+
+  @@index([questionId])
+}
+
+model Attempt {
+  id                String   @id @default(cuid())
+  gameId            String
+  userId            String
+  game              Game     @relation(fields: [gameId], references: [id])
+  attemptCount      Int      @default(0)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Answer            Answer[]
+  totalScore        Int      @default(0)
+  isFinished        Boolean?
+  accuracy          Float? // for open_ended questions
+  percentageCorrect Float? // for open_ended questions
 
   @@index([gameId])
 }

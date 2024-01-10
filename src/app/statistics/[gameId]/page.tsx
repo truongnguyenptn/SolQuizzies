@@ -10,6 +10,8 @@ import AccuracyCard from "@/components/statistics/AccuracyCard";
 import TimeTakenCard from "@/components/statistics/TimeTakenCard";
 import QuestionsList from "@/components/statistics/QuestionsList";
 import { prisma } from "@/lib/db";
+import axios from "axios";
+import { config } from "@/lib/config";
 
 type Props = {
   params: {
@@ -17,33 +19,31 @@ type Props = {
   };
 };
 
+const getStatistics = async (gameId : string, userId = "testuser" ) => {
+  
+  try {
+    const response = await axios.post(`${config.API_URL}/statistics`, { gameId, userId});
+   console.log({
+    questions : response.data.questions,
+    accuracy: response.data.accuracy,
+  })
+    return {
+      questions : response.data.questions,
+      accuracy: response.data.accuracy,
+    };
+  } catch (error) {
+    console.error("Error retrieving data:", error);
+    return { ok: false, error: "Failed to retrieve data" };
+  }
+
+}
 const Statistics = async ({ params: { gameId } }: Props) => {
 
-  const game = await prisma.game.findUnique({
-    where: { id: gameId },
-    include: { questions: true },
-  });
-  if (!game) {
-    return redirect("/");
-  }
 
-  let accuracy: number = 0;
+  const {questions, time, accuracy} = await getStatistics(gameId)
 
-  if (game.gameType === "mcq") {
-    let totalCorrect = game.questions.reduce((acc, question) => {
-      if (question.isCorrect) {
-        return acc + 1;
-      }
-      return acc;
-    }, 0);
-    accuracy = (totalCorrect / game.questions.length) * 100;
-  } else if (game.gameType === "open_ended") {
-    let totalPercentage = game.questions.reduce((acc, question) => {
-      return acc + (question.percentageCorrect ?? 0);
-    }, 0);
-    accuracy = totalPercentage / game.questions.length;
-  }
-  accuracy = Math.round(accuracy * 100) / 100;
+
+
 
   return (
     <>
@@ -62,11 +62,11 @@ const Statistics = async ({ params: { gameId } }: Props) => {
           <ResultsCard accuracy={accuracy} />
           <AccuracyCard accuracy={accuracy} />
           <TimeTakenCard
-            timeEnded={new Date(game.timeEnded ?? 0)}
-            timeStarted={new Date(game.timeStarted ?? 0)}
+            timeEnded={new Date(time?.ended ?? 0)}
+            timeStarted={new Date(time?.started ?? 0)}
           />
         </div>
-        <QuestionsList questions={game.questions} />
+        <QuestionsList questions={questions} />
       </div>
     </>
   );

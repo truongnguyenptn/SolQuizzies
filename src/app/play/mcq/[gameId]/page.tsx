@@ -13,7 +13,7 @@ type Props = {
     gameId: string;
   };
 };
-const retrievePosts = async (gameId: string) => {
+const getQuestions = async (gameId: string) => {
   try {
     const response = await axios.post(`/api/mcq`, { gameId });
     return response;
@@ -28,10 +28,9 @@ const MCQPage =  ({ params: { gameId } }: Props) => {
   // if (!session?.user) {
   //   return redirect("/");
   // }
-
-  const { data, isLoading } = useQuery([gameId], () => retrievePosts(gameId));
+  const { data, isLoading } = useQuery([gameId], () => getQuestions(gameId));
   if ( isLoading ) return <LoadingQuestions finished = {!isLoading}/>;
-  return <MCQ game={data?.data?.game} />;
+  return <MCQ game={data?.data?.game} attempt={data?.data.attempt} />;
 };
 
 export default MCQPage;

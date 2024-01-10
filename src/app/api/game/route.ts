@@ -4,6 +4,7 @@ import { quizCreationSchema } from "@/schemas/forms/quiz";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import axios from "axios";
+import { config } from "@/lib/config";
 
 export async function POST(req: Request, res: Response) {
 
@@ -47,9 +48,10 @@ export async function POST(req: Request, res: Response) {
         },
       },
     });
+    console.log("after upsert game");
 
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL as string}/api/questions`,
+      `${config.API_URL}/questions`,
       {
         amount,
         topic,
@@ -113,6 +115,7 @@ export async function POST(req: Request, res: Response) {
         }
       );
     } else {
+      console.log(error)
       return NextResponse.json(
         { error: "An unexpected error occurred." },
         {
@@ -160,6 +163,7 @@ export async function GET(req: Request, res: Response) {
       }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "An unexpected error occurred." },
       {

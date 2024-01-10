@@ -7,9 +7,9 @@ import stringSimilarity from "string-similarity";
 export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
-    const { questionId, userInput } = checkAnswerSchema.parse(body);
+    const { questionId, userInput, attempt } = body;
     const question = await prisma.question.findUnique({
-      where: { id: questionId },
+      where: { id : questionId },
     });
     if (!question) {
       return NextResponse.json(
@@ -21,17 +21,31 @@ export async function POST(req: Request, res: Response) {
         }
       );
     }
-    await prisma.question.update({
-      where: { id: questionId },
-      data: { userAnswer: userInput },
-    });
+  
     if (question.questionType === "mcq") {
+   
       const isCorrect =
-        question.answer.toLowerCase().trim() === userInput.toLowerCase().trim();
-      await prisma.question.update({
-        where: { id: questionId },
-        data: { isCorrect },
+      question.answer.toLowerCase().trim() === userInput.toLowerCase().trim();
+      await prisma.answer.create({
+        data: {
+          userId: "user-test", // Provide the actual user ID
+          question: {
+            connect: {
+              id: questionId,
+            },
+          },
+          attempt : {
+            connect: {
+              id: attempt.id,
+            },
+          },
+          userAnswer: userInput,
+          isCorrect
+        },
       });
+    
+
+     
       return NextResponse.json({
         isCorrect,
       });
@@ -41,6 +55,7 @@ export async function POST(req: Request, res: Response) {
         userInput.toLowerCase().trim()
       );
       percentageSimilar = Math.round(percentageSimilar * 100);
+      
       await prisma.question.update({
         where: { id: questionId },
         data: { percentageCorrect: percentageSimilar },

@@ -1,5 +1,5 @@
 "use client";
-import { Game, Question } from "@prisma/client";
+import { Game, Question, Attempt } from "@prisma/client";
 import React from "react";
 import {
   Card,
@@ -21,9 +21,11 @@ import { useToast } from "./ui/use-toast";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
+  userId?: string,
+  attempt: Attempt;
 };
 
-const MCQ = ({ game }: Props) => {
+const MCQ = ({ game, userId, attempt }: Props) => {
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [hasEnded, setHasEnded] = React.useState(false);
   const [stats, setStats] = React.useState({
@@ -49,6 +51,7 @@ const MCQ = ({ game }: Props) => {
       const payload: z.infer<typeof checkAnswerSchema> = {
         questionId: currentQuestion.id,
         userInput: options[selectedChoice],
+        attempt: attempt
       };
       const response = await axios.post(`/api/checkAnswer`, payload);
       return response.data;
@@ -58,9 +61,11 @@ const MCQ = ({ game }: Props) => {
   const { mutate: endGame } = useMutation({
     mutationFn: async () => {
       const payload: z.infer<typeof endGameSchema> = {
+        userId: userId || "user-test",
         gameId: game?.id,
+        attemptId: attempt.id
       };
-      const response = await axios.post(`/api/endGame`, payload);
+      const response = await axios.post(`/api/submit-game`, payload);
       return response.data;
     },
   });

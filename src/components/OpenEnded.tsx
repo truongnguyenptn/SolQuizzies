@@ -24,7 +24,7 @@ type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
 
-const OpenEnded = ({ game }: Props) => {
+const OpenEnded = ({ game, attemptId }: Props) => {
   const [hasEnded, setHasEnded] = React.useState(false);
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [blankAnswer, setBlankAnswer] = React.useState("");
@@ -36,6 +36,7 @@ const OpenEnded = ({ game }: Props) => {
     mutationFn: async () => {
       const payload: z.infer<typeof endGameSchema> = {
         gameId: game.id,
+        attemptId
       };
       const response = await axios.post(`/api/endGame`, payload);
       return response.data;
