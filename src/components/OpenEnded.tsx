@@ -1,3 +1,4 @@
+export const maxDuration = 300;
 "use client";
 import { cn, formatTimeDelta } from "@/lib/utils";
 import { Game, Question } from "@prisma/client";
