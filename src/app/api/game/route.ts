@@ -51,7 +51,7 @@ export async function POST(req: Request, res: Response) {
     console.log("after upsert game");
 
     const { data } = await axios.post(
-      `${config.API_URL}/questions`,
+      `${config.GPTSERVICE_API_URL}/questions/generate`,
       {
         amount,
         topic,
