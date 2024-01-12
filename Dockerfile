@@ -8,10 +8,8 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-    yarn 
-
-
+RUN echo "Checking Yarn version:" && yarn --version && \
+    echo "Installing dependencies:" && yarn
 
 # Rebuild the source code only when needed
 FROM base AS builder
