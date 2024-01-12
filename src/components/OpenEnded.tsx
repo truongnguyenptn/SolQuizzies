@@ -1,4 +1,3 @@
-export const maxDuration = 300;
 "use client";
 import { cn, formatTimeDelta } from "@/lib/utils";
 import { Game, Question } from "@prisma/client";
@@ -20,6 +19,7 @@ import { checkAnswerSchema, endGameSchema } from "@/schemas/questions";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import Link from "next/link";
+export const maxDuration = 300;
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
