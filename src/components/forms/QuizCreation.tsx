@@ -76,7 +76,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         setFinishedLoading(true);
         setTimeout(() => {
           if (form.getValues("type") === "mcq") {
-            router.push(`/play/mcq/${gameId}`);
+            router.push(`/game/${gameId}`);
           } else if (form.getValues("type") === "open_ended") {
             router.push(`/play/open-ended/${gameId}`);
           }

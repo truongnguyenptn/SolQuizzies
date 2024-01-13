@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
 import { useToast } from "./ui/use-toast";
+import { config } from "@/lib/config";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -65,7 +66,7 @@ const MCQ = ({ game, userId, attemptId }: Props) => {
         gameId: game?.id,
         attemptId: attemptId
       };
-      const response = await axios.post(`/api/submit-game`, payload);
+      const response = await axios.post(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/games/submit`, payload);
       return response.data;
     },
   });
