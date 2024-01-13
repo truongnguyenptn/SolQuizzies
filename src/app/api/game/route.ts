@@ -51,14 +51,14 @@ export async function POST(req: Request, res: Response) {
     console.log("after upsert game");
 
     const { data } = await axios.post(
-      `${config.GPTSERVICE_API_URL}/questions/generate`,
+      `${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/questions/generate`,
       {
         amount,
         topic,
         type,
       }
     );
-
+      console.log(data)
     if (type === "mcq") {
       type mcqQuestion = {
         question: string;

@@ -37,7 +37,9 @@ const OpenEndedPage = ({ params: { gameId } }: Props) => {
   //   },
   // });
 
-  const { data, isLoading } = useQuery([gameId], () => retrievePosts(gameId));
+  const { data, isLoading } = useQuery([gameId], () => retrievePosts(gameId), {
+    enabled: true
+  });
 
   if ( isLoading ) return <LoadingQuestions finished = {!isLoading}/>;
   if (!data?.data?.game || data?.data?.game.gameType === "mcq") {

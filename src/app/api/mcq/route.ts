@@ -10,7 +10,7 @@ export async function POST(
 
     const request = await req.json();
     const gameId = request.gameId;
-    const userId = request.userId || "test";
+    const userId = request.userId || "user-test";
     console.log("apicalled",gameId);
     if (!gameId) {
         return NextResponse.json(
@@ -35,21 +35,7 @@ export async function POST(
         },
       },
     });
-    const attemptCount = await prisma.attempt.count({
-      where: {
-        gameId: gameId,
-        userId: userId,
-      },
-    });
-  
-
-    const attempt = await prisma.attempt.create({
-        data: {
-          gameId: gameId,
-          userId: userId,
-          attemptCount: attemptCount + 1,
-        },
-      });
+   
   
     if (!game) {
         return NextResponse.json(
@@ -61,7 +47,7 @@ export async function POST(
     }
 
     return NextResponse.json(
-        {game: game, attempt: attempt},
+        {game: game},
         {
           status: 200,
         }

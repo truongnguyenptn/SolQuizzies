@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 type Props = {
   params: {
     gameId: string;
+    attemptId: string;
   };
 };
 const getQuestions = async (gameId: string) => {
@@ -23,14 +24,14 @@ const getQuestions = async (gameId: string) => {
   }
 };
 
-const MCQPage =  ({ params: { gameId } }: Props) => {
+const MCQPage =  ({ params: { gameId, attemptId } }: Props) => {
   // const session = await getAuthSession();
   // if (!session?.user) {
   //   return redirect("/");
   // }
-  const { data, isLoading } = useQuery([gameId], () => getQuestions(gameId));
+  const { data, isLoading } = useQuery([gameId], () => getQuestions(gameId), { enabled: true});
   if ( isLoading ) return <LoadingQuestions finished = {!isLoading}/>;
-  return <MCQ game={data?.data?.game} attempt={data?.data.attempt} />;
+  return <MCQ game={data?.data?.game} attemptId={attemptId} />;
 };
 
 export default MCQPage;

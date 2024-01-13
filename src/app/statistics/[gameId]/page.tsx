@@ -19,10 +19,10 @@ type Props = {
   };
 };
 
-const getStatistics = async (gameId : string, userId = "testuser" ) => {
+const getStatistics = async (gameId : string, userId = "user-test" ) => {
   
   try {
-    const response = await axios.post(`${config.API_URL}/statistics`, { gameId, userId});
+    const response = await axios.post(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/games/statistics`, { gameId, userId});
    console.log({
     questions : response.data.questions,
     accuracy: response.data.accuracy,

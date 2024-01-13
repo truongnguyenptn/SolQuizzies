@@ -7,7 +7,7 @@ import stringSimilarity from "string-similarity";
 export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
-    const { questionId, userInput, attempt } = body;
+    const { questionId, userInput, attemptId } = body;
     const question = await prisma.question.findUnique({
       where: { id : questionId },
     });
@@ -36,7 +36,7 @@ export async function POST(req: Request, res: Response) {
           },
           attempt : {
             connect: {
-              id: attempt.id,
+              id: attemptId,
             },
           },
           userAnswer: userInput,

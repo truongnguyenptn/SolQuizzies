@@ -85,10 +85,13 @@ export async function strict_output(
     // try-catch block to ensure output format is adhered to
     try {
       let output: any = JSON.parse(res);
+      console.log("type", output);
 
       if (list_input) {
         if (!Array.isArray(output)) {
-          throw new Error("Output format not in a list of json");
+          const arrayOfJson = Object.keys(output)?.map((key,value) => ({ [key]: output[key] }));
+          output = arrayOfJson;
+          // throw new Error("Output format not in a list of json");
         }
       } else {
         output = [output];
@@ -97,13 +100,16 @@ export async function strict_output(
       // check for each element in the output_list, the format is correctly adhered to
       for (let index = 0; index < output.length; index++) {
         for (const key in output_format) {
+          
           // unable to ensure accuracy of dynamic output header, so skip it
           if (/<.*?>/.test(key)) {
             continue;
           }
+          console.log({key},output[index],index)
 
           // if output field missing, raise an error
           if (!(key in output[index])) {
+            console.log("output",output[index])
             throw new Error(`${key} not in json output`);
           }
 

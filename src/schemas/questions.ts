@@ -14,4 +14,5 @@ export const checkAnswerSchema = z.object({
 export const endGameSchema = z.object({
   gameId: z.string(),
   userId: z.string(),
+  attemptId: z.string(),
 });
