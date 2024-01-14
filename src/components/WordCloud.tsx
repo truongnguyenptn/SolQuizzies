@@ -14,15 +14,11 @@ const fontSizeMapper = (word: { value: number }) =>
 const WordCloud = ({ formattedTopics }: Props) => {
   const theme = useTheme();
   const router = useRouter();
-  const test = [
-    {
-      text: "Hello.", value: 1000,
-    }
-  ]
+
   return (
     <>
       <D3WordCloud
-        data={formattedTopics?.slice(0,5)}
+        data={formattedTopics?.slice(0,20)}
         height={550}
         font="Times"
         fontSize={fontSizeMapper}

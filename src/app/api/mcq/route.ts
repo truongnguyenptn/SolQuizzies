@@ -10,7 +10,6 @@ export async function POST(
 
     const request = await req.json();
     const gameId = request.gameId;
-    const userId = request.userId || "user-test";
     console.log("apicalled",gameId);
     if (!gameId) {
         return NextResponse.json(

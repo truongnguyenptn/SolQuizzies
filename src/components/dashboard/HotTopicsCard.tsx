@@ -21,6 +21,7 @@ const getTopics = async ()=> {
     return {
       text: game.topic,
       value: value || 1,
+      id: game.id,
     };
   });
   return formattedTopics;
