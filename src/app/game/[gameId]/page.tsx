@@ -1,13 +1,13 @@
 "use client";
 import OpenEnded from "@/components/OpenEnded";
-import React from "react";
+import React, { useState } from "react";
 import LoadingQuestions from "@/components/LoadingQuestions";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import {  Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Link } from "lucide-react";
 
@@ -25,8 +25,9 @@ const getQuestions = async (gameId: string) => {
       return { ok: false, error: "Failed to retrieve data" };
     }
   };
-const handleStartGame = async (gameId: string, userId: string, router) => {
+const handleStartGame = async (gameId: string, userId: string, router, onStart: ()=> void) => {
   try {
+    onStart();
     const response = await axios.post(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/games/start`, { gameId, userId });
     if (response.data) {
         // Redirect to the play page
@@ -44,6 +45,7 @@ const GamePage = ({ params: { gameId } }: Props) => {
   const { data, isLoading } = useQuery([gameId], () => getQuestions(gameId), {
     enabled: true
   });
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   if ( isLoading ) return <LoadingQuestions finished = {!isLoading}/>;
 
@@ -63,12 +65,13 @@ const GamePage = ({ params: { gameId } }: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="max-h-[580px] flex justify-center">
-      <div 
-        onClick={() => handleStartGame(gameId, "user-test", router)} 
+      <Button
+        loading={loading}
+        onClick={() => handleStartGame(gameId, "user-test", router, () => setLoading(true))} 
         className={cn(buttonVariants({ size: "lg" }), "px-4 py-2 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap")}
       >
              Start Game
-      </div>
+      </Button>
       </CardContent>
     </Card>
     </div>

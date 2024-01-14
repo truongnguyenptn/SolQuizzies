@@ -38,17 +38,44 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  loading?: boolean; // Added loading prop
+  startDecorator?: React.ReactNode
+  endDecorator?: React.ReactNode
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false,
+    startDecorator,
+    endDecorator,
+    loading = false , ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+    if (loading) {
+      startDecorator = (
+        <svg
+          fill="currentColor"
+          width="1em"
+          height="1em"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+          className="animate-spin text-xl"
+        >
+          <g>
+            <path d="M8,1V2.8A5.2,5.2,0,1,1,2.8,8H1A7,7,0,1,0,8,1Z" />
+          </g>
+        </svg>
+      )
+    }
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        disabled={loading}
         {...props}
-      />
+      >
+         {startDecorator && <span className="btn-icon mr-2">{startDecorator}</span>}
+        {props.children}
+        {endDecorator && <span className="btn-icon ml-2">{endDecorator}</span>}
+      </Comp>
     )
   }
 )
