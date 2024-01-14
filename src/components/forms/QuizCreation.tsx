@@ -29,6 +29,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LoadingQuestions from "../LoadingQuestions";
+import { config } from "@/lib/config";
 
 type Props = {
   topic: string;
@@ -43,7 +44,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   const { toast } = useToast();
   const { mutate: getQuestions, isLoading } = useMutation({
     mutationFn: async ({ amount, topic, type }: Input) => {
-      const response = await axios.post("/api/game", { amount, topic, type });
+      const response = await axios.post(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/games/create`, { amount, topic, type });
       return response.data;
     },
   });

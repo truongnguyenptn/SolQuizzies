@@ -14,10 +14,15 @@ const fontSizeMapper = (word: { value: number }) =>
 const WordCloud = ({ formattedTopics }: Props) => {
   const theme = useTheme();
   const router = useRouter();
+  const test = [
+    {
+      text: "Hello.", value: 1000,
+    }
+  ]
   return (
     <>
       <D3WordCloud
-        data={formattedTopics}
+        data={formattedTopics?.slice(0,5)}
         height={550}
         font="Times"
         fontSize={fontSizeMapper}
@@ -26,7 +31,7 @@ const WordCloud = ({ formattedTopics }: Props) => {
         fill={theme.theme === "dark" ? "white" : "black"}
         onWordClick={(e, d) => {
           console.log(d)
-          router.push(`/play/${d.topic}/${d.id}`);
+          router.push(`/game/${d.id}`);
         }}
       />
     </>

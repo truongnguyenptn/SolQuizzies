@@ -15,8 +15,15 @@ import { useQuery } from "@tanstack/react-query";
 type Props = {};
 
 const getTopics = async ()=> {
-  const data = await axios.get(`/api/topic`,);
-  return data.data.formattedTopics;
+  const data = await axios.get(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/games`,);
+    const formattedTopics = data?.data?.map((game) => {
+    const value = (new Date(game.timeStarted).getTime() % 100)+1;
+    return {
+      text: game.topic,
+      value: value || 1,
+    };
+  });
+  return formattedTopics;
 }
 
 const HotTopicsCard = (props: Props) => {
@@ -30,7 +37,7 @@ const HotTopicsCard = (props: Props) => {
   // const formattedTopics = await getTopics();
   // console.log(formattedTopics);
   const { data, isLoading } = useQuery([props], () => getTopics());
-
+  console.log({test:data});
   return (
     <Card className="">
       <CardHeader className="col-span-4 ">
@@ -40,7 +47,7 @@ const HotTopicsCard = (props: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pl-2 col-span-6">
-      {data?.data && <WordCloud formattedTopics={data?.data?.formattedTopics} />}
+      {data && <WordCloud formattedTopics={data} />}
       </CardContent>
     </Card>
   );

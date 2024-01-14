@@ -6,6 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { config } from "@/lib/config";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Link } from "lucide-react";
 
 type Props = {
   params: {
@@ -47,9 +51,29 @@ const GamePage = ({ params: { gameId } }: Props) => {
     <div>
     <h1>{data?.game?.type}</h1>
     {/* Display other game details */}
-    <button onClick={()=>handleStartGame(gameId, "user-test", router)}>Start Game</button>
+    <div className="absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+  
+      <Card className="col-span-4 lg:col-span-3">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">
+          Quizzies game
+        </CardTitle>
+        <CardDescription>
+          Play quizzies and learn
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="max-h-[580px] flex justify-center">
+      <div 
+        onClick={() => handleStartGame(gameId, "user-test", router)} 
+        className={cn(buttonVariants({ size: "lg" }), "px-4 py-2 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap")}
+      >
+             Start Game
+      </div>
+      </CardContent>
+    </Card>
+    </div>
   </div>    
-  );
+    );
 };
 
 export default GamePage;
