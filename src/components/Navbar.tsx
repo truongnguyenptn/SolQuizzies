@@ -20,8 +20,11 @@ const Navbar = () => {
         </Link>
         <div className="flex items-center">
           <ThemeToggle className="mr-4" />
+
           {(
-            <WalletMultiButtonDynamic/>
+            <div className="bg-black rounded-lg border-2 dark:border-white">
+              <WalletMultiButtonDynamic/>
+            </div>
           ) }
         </div>
       </div>

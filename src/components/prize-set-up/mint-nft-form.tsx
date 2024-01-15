@@ -11,7 +11,7 @@ import { InputMint } from "@/components/ui/input-mint"
 import { SelectTrigger, SelectValue } from "@/components/ui/select"
 // import { Networks } from "@/config/enum"
 import { mintNFT, upload, uploadMetadata } from "@/lib/shyft"
-import ConnectWalletButton from "./connect-wallet-button"
+
 import { NetworkSelect } from "@/components/network-select"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { IconButton } from "@/components/ui/icon-button"
@@ -415,11 +415,15 @@ export function MintNFTForm() {
 
           <div className="flex justify-end">
             {connected ? (
-              <ButtonMint loading={form.formState.isSubmitting} type="submit">
-                Create
-              </ButtonMint>
+              <div className="bg-black dark:border-white mr-6 mb-4 px-4 rounded-lg hover:bg-gray-700">
+                <ButtonMint className="bg-black" loading={form.formState.isSubmitting} type="submit">
+                  Create
+                </ButtonMint>
+              </div>
             ) : (
-              <ConnectWalletButton>Connect Wallet</ConnectWalletButton>
+              <div className="font-bold p-8">You have to connect wallet
+              
+              </div>
             )}
           </div>
         </form>
