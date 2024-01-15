@@ -49,12 +49,16 @@ const MCQ = ({ game, userId, attemptId }: Props) => {
   const { toast } = useToast();
   const { mutate: checkAnswer, isLoading: isChecking } = useMutation({
     mutationFn: async () => {
-      const payload: z.infer<typeof checkAnswerSchema> = {
+      const payload: z.infer<typeof checkAnswerSchema> & {
+        attemptId: string,
+        userId: string
+      } = {
         questionId: currentQuestion.id,
         userInput: options[selectedChoice],
-        attemptId: attemptId
+        attemptId: attemptId,
+        userId: "user-test"
       };
-      const response = await axios.post(`/api/checkAnswer`, payload);
+      const response = await axios.post(`${config.NEXT_PUBLIC_GPTSERVICE_API_URL}/answer/check`, payload);
       return response.data;
     },
   });
