@@ -3,8 +3,9 @@ import React from 'react';
 import DetailsDialog from "@/components/DetailsDialog";
 import PrizeColumnCard from "@/components/prize-set-up/PrizeColumnCard";
 import {MintNFTForm} from "@/components/prize-set-up/mint-nft-form";
+import { PlusIcon } from "lucide-react"
 
-
+let index = 1;
 const Page = () => {
     let whatIsThisMessage = "Set up prizes for players";
     return (
@@ -25,8 +26,16 @@ const Page = () => {
         <RecentActivityCard /> */}
       </div>
       <div>
-        <PrizeColumnCard/>
-        {/* <MintNFTForm/> */}
+        <PrizeColumnCard
+            rank={index}
+        />
+
+        <button
+            className="flex items-center justify-center px-8 py-4 mt-8 text-white text-center rounded-xl bg-slate-800"
+        >
+            Set up prize for next rank <PlusIcon className='ml-1 font-bold'></PlusIcon>
+        </button>
+
       </div>
     </main>
     );
